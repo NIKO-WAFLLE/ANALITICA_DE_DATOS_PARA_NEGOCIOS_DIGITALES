@@ -1,0 +1,2276 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/22/2025 9:36:46 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-K3CC2KH"
+  DTS:CreatorName="DESKTOP-K3CC2KH\furrinator"
+  DTS:DTSID="{D0D2D5E3-1489-4E87-BBA1-F481C2F48E0F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="03-stage-CLIENTE"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{DF30765C-B3D6-4C31-B98D-9FDFBEAC1310}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-K3CC2KH.Northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8F4AE48E-3DA9-4AE0-9101-66F713442AAE}"
+      DTS:ObjectName="DESKTOP-K3CC2KH.Northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-K3CC2KH;Initial Catalog=Northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-03-stage-CLIENTE-{8F4AE48E-3DA9-4AE0-9101-66F713442AAE}DESKTOP-K3CC2KH.Northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{76D8ECB3-F8F6-4F70-98C3-A0C84528614A}"
+      DTS:ObjectName="LocalHost.Stage_northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Stage_northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-03-stage-CLIENTE-{76D8ECB3-F8F6-4F70-98C3-A0C84528614A}LocalHost.Stage_northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Stage_northwind 1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8CA5B672-B597-4790-9921-E457367877A6}"
+      DTS:ObjectName="LocalHost.Stage_northwind 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Stage_northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-03-stage-CLIENTE-{8CA5B672-B597-4790-9921-E457367877A6}LocalHost.Stage_northwind 1;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CARGA STAGE_CLIENTE"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{BCEF73D1-21EF-4C66-81B5-F4EAF9E060E5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CARGA STAGE_CLIENTE"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input].Columns[clienteid]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="clienteid"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[clienteid]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[NUEVO CLIENTE]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="NUEVO CLIENTE"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[clienteid]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(clienteid)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input].Columns[CITY]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CITY"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input].Columns[region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input].Columns[POSTALCODE]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="POSTALCODE"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input].Columns[CustomerID]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="CustomerID"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CompanyName]"
+                      name="CHAR_CompanyName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CITY]"
+                      name="CHAR_CITY"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_region]"
+                      name="CHAR_region"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_POSTALCODE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_POSTALCODE]"
+                      name="CHAR_POSTALCODE"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CustomerID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CustomerID]"
+                      name="CHAR_CustomerID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">6</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="CHAR_CompanyName"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CompanyName]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_CITY"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CITY]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_region"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_region]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_POSTALCODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="CHAR_POSTALCODE"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_POSTALCODE]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CustomerID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CHAR_CustomerID"
+                      cachedSortKeyPosition="6"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CustomerID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[clienteid]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="clienteid"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[clienteid]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[compania]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="compania"
+                      cachedSortKeyPosition="2"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[compania]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[ciudad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="ciudad"
+                      cachedSortKeyPosition="3"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[ciudad]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      cachedSortKeyPosition="4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[region]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[codigopostal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="codigopostal"
+                      cachedSortKeyPosition="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[codigopostal]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[pais]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="pais"
+                      cachedSortKeyPosition="6"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[pais]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[Country]"
+                      name="Country"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[Country]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CompanyName]"
+                      name="CHAR_CompanyName"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CITY]"
+                      name="CHAR_CITY"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CITY]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_region]"
+                      name="CHAR_region"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_POSTALCODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_POSTALCODE]"
+                      name="CHAR_POSTALCODE"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_POSTALCODE]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CustomerID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CustomerID]"
+                      name="CHAR_CustomerID"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input].Columns[CHAR_CustomerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[clienteid]"
+                      name="clienteid">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[clienteid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[compania]"
+                      name="compania">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[compania]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[ciudad]"
+                      name="ciudad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[ciudad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[codigopostal]"
+                      name="codigopostal">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[codigopostal]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[pais]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[pais]"
+                      name="pais">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[clientes]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CHAR_CustomerID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CHAR_CustomerID"
+                      cachedSortKeyPosition="6"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[clienteid]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CustomerID]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CHAR_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="CHAR_CompanyName"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[compania]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CompanyName]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CHAR_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_CITY"
+                      cachedSortKeyPosition="3"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ciudad]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_CITY]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CHAR_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_region"
+                      cachedSortKeyPosition="4"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_region]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CHAR_POSTALCODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="CHAR_POSTALCODE"
+                      cachedSortKeyPosition="5"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[codigopostal]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[CHAR_POSTALCODE]" />
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pais]"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="clienteid" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="compania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="codigopostal" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pais]"
+                      dataType="wstr"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB NORTWIND_CUSTUMERS"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select CustomerID, CompanyName, 
+isnull (city, 'SC') AS CITY, 
+isnull (Region, 'sr') as region,
+ISNULL (PostalCode, 'SPC') AS POSTALCODE,
+ISNULL (Country, 'SCOUN') AS Country
+from Northwind.dbo.Customers</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-K3CC2KH.Northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-K3CC2KH.Northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                      name="CustomerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      name="CompanyName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CITY]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]"
+                      name="CITY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[POSTALCODE]"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]"
+                      name="POSTALCODE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      name="CustomerID" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      name="CompanyName" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[CITY]"
+                      dataType="wstr"
+                      length="15"
+                      name="CITY" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      dataType="wstr"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[POSTALCODE]"
+                      dataType="wstr"
+                      length="10"
+                      name="POSTALCODE" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                      name="CustomerID" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      name="CompanyName" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CITY]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[CITY]"
+                      name="CITY" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[region]"
+                      name="region" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[POSTALCODE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[POSTALCODE]"
+                      name="POSTALCODE" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB STAGE_NORT"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[clientes]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[clienteid]"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[clienteid]"
+                      name="clienteid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[compania]"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[compania]"
+                      name="compania"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[ciudad]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[ciudad]"
+                      name="ciudad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[codigopostal]"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[codigopostal]"
+                      name="codigopostal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[pais]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[pais]"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[pais]"
+                      name="pais"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="clienteid" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="compania" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="ciudad" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="codigopostal" />
+                    <externalMetadataColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].ExternalColumns[pais]"
+                      dataType="wstr"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[clienteid]"
+                      name="clienteid" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[compania]"
+                      name="compania" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ciudad]"
+                      name="ciudad" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[region]"
+                      name="region" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[codigopostal]"
+                      name="codigopostal" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[pais]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[pais]"
+                      name="pais" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="ORDENAR CLIENTE"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[clienteid]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="clienteid"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[clienteid]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[compania]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="compania"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[compania]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[ciudad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="ciudad"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[ciudad]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[codigopostal]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="codigopostal"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[codigopostal]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input].Columns[pais]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="pais"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[pais]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[clienteid]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[clienteid]"
+                      name="clienteid"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[clienteid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[compania]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[compania]"
+                      name="compania"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[compania]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[ciudad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[ciudad]"
+                      name="ciudad"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[ciudad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[region]"
+                      name="region"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[codigopostal]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[codigopostal]"
+                      name="codigopostal"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[codigopostal]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[pais]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output].Columns[pais]"
+                      name="pais"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="ORDENAR CUSTUMERS"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CustomerID]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="CustomerID"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CITY]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="CITY"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[POSTALCODE]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="POSTALCODE"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      lineageId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[Country]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CHAR_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="CHAR_CompanyName"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CompanyName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CHAR_CITY]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_CITY"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CITY]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CHAR_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CHAR_region"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CHAR_POSTALCODE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="CHAR_POSTALCODE"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_POSTALCODE]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input].Columns[CHAR_CustomerID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CHAR_CustomerID"
+                      lineageId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CustomerID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CustomerID]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CustomerID]"
+                      name="CustomerID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CustomerID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CompanyName]"
+                      name="CompanyName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CITY]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CITY]"
+                      name="CITY">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[CITY]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[POSTALCODE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[POSTALCODE]"
+                      name="POSTALCODE">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[POSTALCODE]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[Country]"
+                      name="Country"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output].Columns[Country]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CompanyName]"
+                      name="CHAR_CompanyName"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CITY]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CITY]"
+                      name="CHAR_CITY"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CITY]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_region]"
+                      name="CHAR_region"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_POSTALCODE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_POSTALCODE]"
+                      name="CHAR_POSTALCODE"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_POSTALCODE]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CustomerID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output].Columns[CHAR_CustomerID]"
+                      name="CHAR_CustomerID"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output].Columns[CHAR_CustomerID]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[Data Conversion Output]"
+              endId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Inputs[Sort Input]"
+              name="Data Conversion Output"
+              startId="Package\CARGA STAGE_CLIENTE\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[Merge Join Output]"
+              endId="Package\CARGA STAGE_CLIENTE\Conditional Split.Inputs[Conditional Split Input]"
+              name="Merge Join Output"
+              startId="Package\CARGA STAGE_CLIENTE\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[NUEVO CLIENTE]"
+              endId="Package\CARGA STAGE_CLIENTE\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="NUEVO CLIENTE"
+              startId="Package\CARGA STAGE_CLIENTE\Conditional Split.Outputs[NUEVO CLIENTE]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[OLE DB Source Output]"
+              endId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[OLE DB Source Output1]"
+              endId="Package\CARGA STAGE_CLIENTE\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[Sort Output]"
+              endId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS.Outputs[Sort Output]" />
+            <path
+              refId="Package\CARGA STAGE_CLIENTE.Paths[Sort Output1]"
+              endId="Package\CARGA STAGE_CLIENTE\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="203.2,41.6"
+          Id="Package\CARGA STAGE_CLIENTE"
+          TopLeft="356.66664717926,86.6666660639975" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\CARGA STAGE_CLIENTE">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\OLE DB Destination"
+          TopLeft="421.874976949767,572.833329551584" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\Data Conversion"
+          TopLeft="331.249981901298,205.833331901994" />
+        <NodeLayout
+          Size="248,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS"
+          TopLeft="279.791651379525,104.433332607117" />
+        <NodeLayout
+          Size="189.6,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT"
+          TopLeft="584.583301393109,103.349999281317" />
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\ORDENAR CLIENTE"
+          TopLeft="589.999967763823,277.766664735112" />
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\ORDENAR CUSTUMERS"
+          TopLeft="315.624982755011,288.166664662792" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\Merge Join"
+          TopLeft="446.041642296025,409.066663822068" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\CARGA STAGE_CLIENTE\Conditional Split"
+          TopLeft="429.166643218035,486.416663284186" />
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[Sort Output1]"
+          TopLeft="678.399967763823,319.366664735112">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-147.291658801131,89.6999990869562"
+              Start="0,0"
+              End="-147.291658801131,82.1999990869562">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.1636579954399" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,49.1636579954399"
+                    Point2="0,53.1636579954399"
+                    Point3="-4,53.1636579954399" />
+                  <mssgle:LineSegment
+                    End="-143.291658801131,53.1636579954399" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-143.291658801131,53.1636579954399"
+                    Point2="-147.291658801131,53.1636579954399"
+                    Point3="-147.291658801131,57.1636579954399" />
+                  <mssgle:LineSegment
+                    End="-147.291658801131,82.1999990869562" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[Sort Output]"
+          TopLeft="415.224982755011,329.766664662792">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75.3499928743479,79.2999991592765"
+              Start="0,0"
+              End="75.3499928743479,71.7999991592765">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.9997555992785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,42.9997555992785"
+                    Point2="0,46.9997555992785"
+                    Point3="4,46.9997555992785" />
+                  <mssgle:LineSegment
+                    End="71.3499928743479,46.9997555992785" />
+                  <mssgle:CubicBezierSegment
+                    Point1="71.3499928743479,46.9997555992785"
+                    Point2="75.3499928743479,46.9997555992785"
+                    Point3="75.3499928743479,50.9997555992785" />
+                  <mssgle:LineSegment
+                    End="75.3499928743479,71.7999991592765" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[OLE DB Source Output1]"
+          TopLeft="406.520816640412,146.033332607117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.7999992948771"
+              Start="0,0"
+              End="0,52.2999992948771">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.2999992948771" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[OLE DB Source Output]"
+          TopLeft="678.891634578466,144.949999281317">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,132.816665453795"
+              Start="0,0"
+              End="0,125.316665453795">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,125.316665453795" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[NUEVO CLIENTE]"
+          TopLeft="506.720810083901,528.016663284186">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.8166662673983"
+              Start="0,0"
+              End="0,37.3166662673983">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.3166662673983" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-37.20294921875,13.8717120399492,74.4058984375,9.5732421875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[Merge Join Output]"
+          TopLeft="508.40414275703,450.666663822068">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.7499994621177"
+              Start="0,0"
+              End="0,28.2499994621177">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.2499994621177" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\CARGA STAGE_CLIENTE.Paths[Data Conversion Output]"
+          TopLeft="412.237482328155,247.433331901994">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.7333327607976"
+              Start="0,0"
+              End="0,33.2333327607976">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.2333327607976" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_CLIENTE\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_CLIENTE\OLE DB NORTWIND_CUSTUMERS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\CARGA STAGE_CLIENTE\OLE DB STAGE_NORT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

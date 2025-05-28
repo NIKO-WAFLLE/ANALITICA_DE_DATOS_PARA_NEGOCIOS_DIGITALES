@@ -1,0 +1,1897 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/23/2025 10:05:13 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-K3CC2KH"
+  DTS:CreatorName="DESKTOP-K3CC2KH\furrinator"
+  DTS:DTSID="{5DD5F585-7B1A-437C-B894-150875A82E7F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="06-stage-provedor"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{3F5C6E63-B68A-4145-8195-04EAC16AB7A1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1703BBEE-44AB-4C30-A717-7494D0B80689}"
+      DTS:ObjectName="LocalHost.Stage_northwind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=Stage_northwind;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-06-stage-provedor-{1703BBEE-44AB-4C30-A717-7494D0B80689}LocalHost.Stage_northwind;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\carga stage provedor"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1EF13B82-33EA-48B6-950E-2CFC5E07C16A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="carga stage provedor"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\carga stage provedor\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedorid]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\Conditional Split.Outputs[provedor nuevo]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="provedor nuevo"
+                  synchronousInputId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">[ISNULL](#{Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedorid]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ISNULL(proveedorid)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input].Columns[CompanyName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="CompanyName"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[CompanyName]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="City"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input].Columns[region]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[region]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input].Columns[Country]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="Country"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="40"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_CompanyName]"
+                      name="chart_CompanyName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[CompanyName]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_City]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_City]"
+                      name="chart_City"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[City]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_region]"
+                      name="chart_region"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[region]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_Country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_Country]"
+                      name="chart_Country"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[Country]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[SupplierID]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="chart_CompanyName"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_CompanyName]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_City"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_City]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_region"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_region]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_Country"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_Country]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedorid]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[cuidad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="cuidad"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[cuidad]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[region]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="pais"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[pais]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[proveedornombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="proveedornombre"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedornombre]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[SupplierID]"
+                      name="SupplierID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_CompanyName]"
+                      name="chart_CompanyName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_City]"
+                      name="chart_City">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_City]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_region]"
+                      name="chart_region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_Country]"
+                      name="chart_Country">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input].Columns[chart_Country]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedorid]"
+                      name="proveedorid">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[proveedorid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[cuidad]"
+                      name="cuidad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[cuidad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[pais]"
+                      name="pais">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[proveedornombre]"
+                      name="proveedornombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input].Columns[proveedornombre]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\nort_supliers"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="nort_supliers"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select SupplierID, CompanyName, City, 
+isnull (Region , 'sr') as region, Country
+from Northwind.dbo.Suppliers</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\carga stage provedor\nort_supliers.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[SupplierID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[SupplierID]"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[SupplierID]"
+                      name="SupplierID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      length="40"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[CompanyName]"
+                      name="CompanyName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[region]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[Country]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[SupplierID]"
+                      dataType="i4"
+                      name="SupplierID" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      name="CompanyName" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="15"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      dataType="wstr"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      name="Country" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[SupplierID]"
+                      name="SupplierID" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[CompanyName]"
+                      name="CompanyName" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[region]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[region]"
+                      name="region" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[proveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\carga stage provedor\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[chart_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="chart_CompanyName"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[proveedornombre]"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_CompanyName]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[chart_City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_City"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cuidad]"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_City]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[chart_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_region"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_region]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[chart_Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_Country"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pais]"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[chart_Country]" />
+                    <inputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[proveedorid]"
+                      lineageId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output].Columns[SupplierID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[proveedorid]"
+                      dataType="i4"
+                      name="proveedorid" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="proveedornombre" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="cuidad" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\OLE DB_provedor"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB_provedor"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[proveedor]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\carga stage provedor\OLE DB_provedor.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  connectionManagerRefId="Package.ConnectionManagers[LocalHost.Stage_northwind]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedorid]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[proveedorid]"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedorid]"
+                      name="proveedorid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[proveedornombre]"
+                      length="40"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedornombre]"
+                      name="proveedornombre"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[cuidad]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[cuidad]"
+                      name="cuidad"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[pais]"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[pais]"
+                      name="pais"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[proveedorid]"
+                      dataType="i4"
+                      name="proveedorid" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="proveedornombre" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="cuidad" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].ExternalColumns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="pais" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[proveedorid]"
+                      name="proveedorid" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[proveedornombre]"
+                      name="proveedornombre" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[cuidad]"
+                      name="cuidad" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[region]"
+                      name="region" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[pais]"
+                      name="pais" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\ordenar nort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="ordenar nort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input].Columns[chart_CompanyName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="chart_CompanyName"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_CompanyName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input].Columns[chart_City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_City"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_City]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input].Columns[chart_region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_region"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input].Columns[chart_Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="chart_Country"
+                      lineageId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_Country]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[SupplierID]"
+                      name="SupplierID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_CompanyName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_CompanyName]"
+                      name="chart_CompanyName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_CompanyName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_City]"
+                      name="chart_City">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_City]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_region]"
+                      name="chart_region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output].Columns[chart_Country]"
+                      name="chart_Country">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output].Columns[chart_Country]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\carga stage provedor\ordenar stage"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="ordenar stage"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input].Columns[proveedorid]"
+                      cachedDataType="i4"
+                      cachedName="proveedorid"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedorid]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input].Columns[proveedornombre]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="proveedornombre"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedornombre]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input].Columns[cuidad]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="cuidad"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[cuidad]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="region"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[region]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input].Columns[pais]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="pais"
+                      lineageId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[pais]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedorid]"
+                      dataType="i4"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedorid]"
+                      name="proveedorid"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedorid]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedornombre]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[proveedornombre]"
+                      name="proveedornombre">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[proveedornombre]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[cuidad]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[cuidad]"
+                      name="cuidad">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[cuidad]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[region]"
+                      name="region">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[region]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[pais]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output].Columns[pais]"
+                      name="pais">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output].Columns[pais]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\carga stage provedor.Paths[Data Conversion Output]"
+              endId="Package\carga stage provedor\ordenar nort.Inputs[Sort Input]"
+              name="Data Conversion Output"
+              startId="Package\carga stage provedor\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\carga stage provedor.Paths[Merge Join Output]"
+              endId="Package\carga stage provedor\Conditional Split.Inputs[Conditional Split Input]"
+              name="Merge Join Output"
+              startId="Package\carga stage provedor\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\carga stage provedor.Paths[OLE DB Source Output]"
+              endId="Package\carga stage provedor\ordenar stage.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\carga stage provedor\OLE DB_provedor.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\carga stage provedor.Paths[OLE DB Source Output1]"
+              endId="Package\carga stage provedor\Data Conversion.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\carga stage provedor\nort_supliers.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\carga stage provedor.Paths[provedor nuevo]"
+              endId="Package\carga stage provedor\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="provedor nuevo"
+              startId="Package\carga stage provedor\Conditional Split.Outputs[provedor nuevo]" />
+            <path
+              refId="Package\carga stage provedor.Paths[Sort Output]"
+              endId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\carga stage provedor\ordenar nort.Outputs[Sort Output]" />
+            <path
+              refId="Package\carga stage provedor.Paths[Sort Output1]"
+              endId="Package\carga stage provedor\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\carga stage provedor\ordenar stage.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176.8,41.6"
+          Id="Package\carga stage provedor"
+          TopLeft="282.499984564881,108.333332579997" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\carga stage provedor">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="138.4,41.6"
+          Id="Package\carga stage provedor\nort_supliers"
+          TopLeft="142.499992214144,90.1333327065574" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\carga stage provedor\OLE DB_provedor"
+          TopLeft="489.16663993978,106.599999258717" />
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\carga stage provedor\Merge Join"
+          TopLeft="356.66664717926,363.999997468789" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\carga stage provedor\Data Conversion"
+          TopLeft="137.499992487332,184.799999349117" />
+        <NodeLayout
+          Size="135.2,41.6"
+          Id="Package\carga stage provedor\ordenar nort"
+          TopLeft="187.499989755452,280.133332019515" />
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\carga stage provedor\ordenar stage"
+          TopLeft="517.499971725048,272.333332073755" />
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[OLE DB Source Output]"
+          TopLeft="570.76663993978,148.199999258717">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="17.9333317852684,124.133332815038"
+              Start="0,0"
+              End="17.9333317852684,116.633332815038">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.0666664075189" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,58.0666664075189"
+                    Point2="0,62.0666664075189"
+                    Point3="4,62.0666664075189" />
+                  <mssgle:LineSegment
+                    End="13.9333317852684,62.0666664075189" />
+                  <mssgle:CubicBezierSegment
+                    Point1="13.9333317852684,62.0666664075189"
+                    Point2="17.9333317852684,62.0666664075189"
+                    Point3="17.9333317852684,66.0666664075189" />
+                  <mssgle:LineSegment
+                    End="17.9333317852684,116.633332815038" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[OLE DB Source Output1]"
+          TopLeft="213.599992350738,131.733332706557">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.0666666425599"
+              Start="0,0"
+              End="0,45.5666666425599">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5666666425599" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[Data Conversion Output]"
+          TopLeft="215.499992487332,226.399999349117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="39.5999972681204,53.7333326703973"
+              Start="0,0"
+              End="39.5999972681204,46.2333326703973">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8666663351986" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.8666663351986"
+                    Point2="0,26.8666663351986"
+                    Point3="4,26.8666663351986" />
+                  <mssgle:LineSegment
+                    End="35.5999972681204,26.8666663351986" />
+                  <mssgle:CubicBezierSegment
+                    Point1="35.5999972681204,26.8666663351986"
+                    Point2="39.5999972681204,26.8666663351986"
+                    Point3="39.5999972681204,30.8666663351986" />
+                  <mssgle:LineSegment
+                    End="39.5999972681204,46.2333326703973" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[Sort Output]"
+          TopLeft="255.099989755452,321.733332019515">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="146.099990757141,42.2666654492749"
+              Start="0,0"
+              End="146.099990757141,34.7666654492749">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.0507309857898" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,21.0507309857898"
+                    Point2="0,25.0507309857898"
+                    Point3="4,25.0507309857898" />
+                  <mssgle:LineSegment
+                    End="142.099990757141,25.0507309857898" />
+                  <mssgle:CubicBezierSegment
+                    Point1="142.099990757141,25.0507309857898"
+                    Point2="146.099990757141,25.0507309857898"
+                    Point3="146.099990757141,29.0507309857898" />
+                  <mssgle:LineSegment
+                    End="146.099990757141,34.7666654492749" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[Sort Output1]"
+          TopLeft="588.699971725048,313.933332073755">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-146.966657879121,50.0666653950347"
+              Start="0,0"
+              End="-146.966657879121,42.5666653950347">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.6736577829108" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.6736577829108"
+                    Point2="0,29.6736577829108"
+                    Point3="-4,29.6736577829108" />
+                  <mssgle:LineSegment
+                    End="-142.966657879121,29.6736577829108" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-142.966657879121,29.6736577829108"
+                    Point2="-146.966657879121,29.6736577829108"
+                    Point3="-146.966657879121,33.6736577829108" />
+                  <mssgle:LineSegment
+                    End="-146.966657879121,42.5666653950347" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\carga stage provedor\Conditional Split"
+          TopLeft="363.333313481676,447.13333095279" />
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[Merge Join Output]"
+          TopLeft="421.46664717926,405.599997468789">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.6666663024161,41.5333334840005"
+              Start="0,0"
+              End="18.6666663024161,34.0333334840005">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.7666667420003" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.7666667420003"
+                    Point2="0,20.7666667420003"
+                    Point3="4,20.7666667420003" />
+                  <mssgle:LineSegment
+                    End="14.6666663024161,20.7666667420003" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.6666663024161,20.7666667420003"
+                    Point2="18.6666663024161,20.7666667420003"
+                    Point3="18.6666663024161,24.7666667420003" />
+                  <mssgle:LineSegment
+                    End="18.6666663024161,34.0333334840005" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\carga stage provedor\OLE DB Destination"
+          TopLeft="373.3333129353,534.66666425599" />
+        <EdgeLayout
+          Id="Package\carga stage provedor.Paths[provedor nuevo]"
+          TopLeft="440.133313481676,488.73333095279">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18.799999453624,45.9333333031998"
+              Start="0,0"
+              End="18.799999453624,38.4333333031998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.9666666515999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.9666666515999"
+                    Point2="0,22.9666666515999"
+                    Point3="4,22.9666666515999" />
+                  <mssgle:LineSegment
+                    End="14.799999453624,22.9666666515999" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14.799999453624,22.9666666515999"
+                    Point2="18.799999453624,22.9666666515999"
+                    Point3="18.799999453624,26.9666666515999" />
+                  <mssgle:LineSegment
+                    End="18.799999453624,38.4333333031998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-25.788652616938,27.9666666515999,70.3773046875,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\carga stage provedor\nort_supliers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\carga stage provedor\OLE DB_provedor">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\carga stage provedor\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
