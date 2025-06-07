@@ -74,4 +74,4 @@ CREATE TABLE [dbo].[Stage_Tiempo](
 
 		select * from ventas
 
-
+		select * from Stage_northwind.dbo.Stage_Tiempo

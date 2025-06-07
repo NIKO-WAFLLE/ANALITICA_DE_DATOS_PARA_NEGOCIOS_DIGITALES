@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="5/9/2025 5:01:25 PM"
@@ -12,7 +12,7 @@
   DTS:ObjectName="01-datamart-dimCliete"
   DTS:PackageType="5"
   DTS:VersionBuild="5"
-  DTS:VersionGUID="{FFFAF47C-9C9D-4F8C-900D-FFBCD8D50A08}">
+  DTS:VersionGUID="{FA985A59-65E6-48D4-BE91-8402B0978A79}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>

@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="07-stage-tiempo"
   DTS:PackageType="5"
-  DTS:VersionBuild="14"
-  DTS:VersionGUID="{85575E64-74F0-463B-9D9C-6DE488241F8E}">
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{E7DCED93-59DB-4963-92B7-E75AD765CE46}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -625,6 +625,12 @@
                       cachedName="DiaDeMes"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Tiempo_DiaDeMes]"
                       lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[DiaDeMes]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DiaDeSemana]"
+                      cachedDataType="i4"
+                      cachedName="DiaDeSemana"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TIEMPO_DIADESEMANA]"
+                      lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[DiaDeSemana]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -660,6 +666,10 @@
                       refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Tiempo_DiaDeMes]"
                       dataType="i4"
                       name="Tiempo_DiaDeMes" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TIEMPO_DIADESEMANA]"
+                      dataType="i4"
+                      name="TIEMPO_DIADESEMANA" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1350,6 +1360,22 @@
                           name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[TIEMPO_DIADESEMANA]"
+                      cachedDataType="i4"
+                      cachedName="TIEMPO_DIADESEMANA"
+                      lineageId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[TIEMPO_DIADESEMANA]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1463,6 +1489,19 @@
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
                           name="SortColumnId">#{Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[Tiempo_DiaDeMes]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[TIEMPO_DIADESEMANA]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[TIEMPO_DIADESEMANA]"
+                      name="TIEMPO_DIADESEMANA">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[TIEMPO_DIADESEMANA]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -1603,6 +1642,15 @@
                       lineageId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[Tiempo_DiaDeMes]"
                       name="Tiempo_DiaDeMes"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[TIEMPO_DIADESEMANA]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].ExternalColumns[TIEMPO_DIADESEMANA]"
+                      lineageId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].Columns[TIEMPO_DIADESEMANA]"
+                      name="TIEMPO_DIADESEMANA"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1638,6 +1686,10 @@
                       refId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].ExternalColumns[Tiempo_DiaDeMes]"
                       dataType="i4"
                       name="Tiempo_DiaDeMes" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Output].ExternalColumns[TIEMPO_DIADESEMANA]"
+                      dataType="i4"
+                      name="TIEMPO_DIADESEMANA" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -1685,6 +1737,11 @@
                       dataType="i4"
                       lineageId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Error Output].Columns[Tiempo_DiaDeMes]"
                       name="Tiempo_DiaDeMes" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Error Output].Columns[TIEMPO_DIADESEMANA]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Error Output].Columns[TIEMPO_DIADESEMANA]"
+                      name="TIEMPO_DIADESEMANA" />
                     <outputColumn
                       refId="Package\Data Flow Task\Stage_Tiempo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"

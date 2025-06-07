@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{8477E74F-4C46-4B66-A27B-2C871463F7BF}">
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{6071D26F-A506-4EA4-8297-4359F4F666C7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -83,10 +83,11 @@
                   name="Conditional Split Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Conditional Split.Inputs[Conditional Split Input].Columns[productoid]"
+                      refId="Package\Data Flow Task\Conditional Split.Inputs[Conditional Split Input].Columns[ProductID]"
                       cachedDataType="i4"
-                      cachedName="productoid"
-                      lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[productoid]" />
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[ProductID]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -106,13 +107,13 @@
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">[ISNULL](#{Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[productoid]})</property>
+                      name="Expression">[ISNULL](#{Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[ProductID]})</property>
                     <property
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the friendly version of the expression. This expression version uses column names."
                       expressionType="Notify"
-                      name="FriendlyExpression">ISNULL(productoid)</property>
+                      name="FriendlyExpression">ISNULL(ProductID)</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
@@ -315,6 +316,11 @@
                       cachedPrecision="15"
                       cachedScale="2"
                       lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[Copy of UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Merge Join.Inputs[Merge Join Left Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CategoryID]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -440,6 +446,19 @@
                           name="InputColumnID">#{Package\Data Flow Task\Merge Join.Inputs[Merge Join Right Input].Columns[preciounitario]}</property>
                       </properties>
                     </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[CategoryID]"
+                      name="CategoryID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Data Flow Task\Merge Join.Inputs[Merge Join Left Input].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -540,6 +559,12 @@
                       cachedScale="2"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[preciounitario]"
                       lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[Copy of UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CategoriaID]"
+                      lineageId="Package\Data Flow Task\Merge Join.Outputs[Merge Join Output].Columns[CategoryID]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -559,6 +584,10 @@
                       name="preciounitario"
                       precision="15"
                       scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CategoriaID]"
+                      dataType="i4"
+                      name="CategoriaID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -612,7 +641,11 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select ProductID, ProductName,UnitPrice from Northwind.dbo.Products;</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select ProductID,  ProductName,
+	UnitPrice ,  c.CategoryID
+	from Northwind.dbo.Products as p
+	inner join Northwind.dbo.Categories as c
+	on p.CategoryID = c.CategoryID;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -676,6 +709,15 @@
                       lineageId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].Columns[UnitPrice]"
                       name="UnitPrice"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      lineageId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -692,6 +734,10 @@
                       refId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].ExternalColumns[UnitPrice]"
                       dataType="cy"
                       name="UnitPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].ExternalColumns[CategoryID]"
+                      dataType="i4"
+                      name="CategoryID" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -715,6 +761,11 @@
                       dataType="cy"
                       lineageId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Error Output].Columns[UnitPrice]"
                       name="UnitPrice" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Error Output].Columns[CategoryID]"
+                      name="CategoryID" />
                     <outputColumn
                       refId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -824,6 +875,15 @@
                       precision="15"
                       scale="2"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].Columns[CategoriaID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].ExternalColumns[CategoriaID]"
+                      lineageId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].Columns[CategoriaID]"
+                      name="CategoriaID"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -843,6 +903,10 @@
                       name="preciounitario"
                       precision="15"
                       scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].ExternalColumns[CategoriaID]"
+                      dataType="i4"
+                      name="CategoriaID" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -869,6 +933,11 @@
                       name="preciounitario"
                       precision="15"
                       scale="2" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Error Output].Columns[CategoriaID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Error Output].Columns[CategoriaID]"
+                      name="CategoriaID" />
                     <outputColumn
                       refId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -961,6 +1030,22 @@
                           name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort.Inputs[Sort Input].Columns[CategoriaID]"
+                      cachedDataType="i4"
+                      cachedName="CategoriaID"
+                      lineageId="Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].Columns[CategoriaID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1013,6 +1098,19 @@
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
                           name="SortColumnId">#{Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].Columns[preciounitario]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Sort.Outputs[Sort Output].Columns[CategoriaID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Sort.Outputs[Sort Output].Columns[CategoriaID]"
+                      name="CategoriaID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Data Flow Task\OLE DB Stage_prdutco.Outputs[OLE DB Source Output].Columns[CategoriaID]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -1128,6 +1226,22 @@
                           name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Sort 1.Inputs[Sort Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -1209,6 +1323,19 @@
                           name="SortColumnId">#{Package\Data Flow Task\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ProductName]}</property>
                       </properties>
                     </outputColumn>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\Sort 1.Outputs[Sort Output].Columns[CategoryID]"
+                      name="CategoryID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Data Flow Task\OLE DB nortwhind_products.Outputs[OLE DB Source Output].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -1279,15 +1406,11 @@
     design-time-name="Package\Data Flow Task">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Data Flow Task\OLE DB Destination"
-          TopLeft="363.333313481676,514.799996420145" />
-        <NodeLayout
-          Size="209.6,41.6"
-          Id="Package\Data Flow Task\OLE DB nortwhind_products"
-          TopLeft="109.999993989865,89.133332869278" />
+          Size="97.6,41.6"
+          Id="Package\Data Flow Task\Sort"
+          TopLeft="612.499966534477,179.733332706557" />
         <NodeLayout
           Size="186.4,41.6"
           Id="Package\Data Flow Task\OLE DB Stage_prdutco"
@@ -1295,181 +1418,139 @@
         <NodeLayout
           Size="156,41.6"
           Id="Package\Data Flow Task\Data Conversion"
-          TopLeft="115.833327004479,190.533332164155" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="214.799993989865,130.733332869278">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-20.9666669853859,59.7999992948771"
-              Start="0,0"
-              End="-20.9666669853859,52.2999992948771">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,25.8999996474385" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,25.8999996474385"
-                    Point2="0,29.8999996474385"
-                    Point3="-4,29.8999996474385" />
-                  <mssgle:LineSegment
-                    End="-16.9666669853859,29.8999996474385" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-16.9666669853859,29.8999996474385"
-                    Point2="-20.9666669853859,29.8999996474385"
-                    Point3="-20.9666669853859,33.8999996474385" />
-                  <mssgle:LineSegment
-                    End="-20.9666669853859,52.2999992948771" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="130.833326184915,173.777776725116" />
         <NodeLayout
-          Size="97.6,41.6"
-          Id="Package\Data Flow Task\Sort"
-          TopLeft="613.333299822279,176.266666063997" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[OLE DB Source Output1]"
-          TopLeft="660.16663447602,109.066666353279">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,67.1999997107188"
-              Start="0,0"
-              End="0,59.6999997107188">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,59.6999997107188" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="106.4,41.6"
-          Id="Package\Data Flow Task\Sort 1"
-          TopLeft="150.833325092164,267.399998607834" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
-          TopLeft="193.833327004479,232.133332164155">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="10.1999980876845,35.2666664436791"
-              Start="0,0"
-              End="10.1999980876845,27.7666664436791">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,13.6333332218395" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,13.6333332218395"
-                    Point2="0,17.6333332218395"
-                    Point3="4,17.6333332218395" />
-                  <mssgle:LineSegment
-                    End="6.19999808768449,17.6333332218395" />
-                  <mssgle:CubicBezierSegment
-                    Point1="6.19999808768449,17.6333332218395"
-                    Point2="10.1999980876845,17.6333332218395"
-                    Point3="10.1999980876845,21.6333332218395" />
-                  <mssgle:LineSegment
-                    End="10.1999980876845,27.7666664436791" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="209.6,41.6"
+          Id="Package\Data Flow Task\OLE DB nortwhind_products"
+          TopLeft="106.666660838657,77.5777773940783" />
         <NodeLayout
           Size="129.6,41.6"
           Id="Package\Data Flow Task\Merge Join"
           TopLeft="384.999978964528,356.133331947194" />
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Sort Output]"
-          TopLeft="204.033325092164,308.999998607834">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="245.766653872365,47.13333333936"
-              Start="0,0"
-              End="245.766653872365,39.63333333936">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.56666666968" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,19.56666666968"
-                    Point2="0,23.56666666968"
-                    Point3="4,23.56666666968" />
-                  <mssgle:LineSegment
-                    End="241.766653872365,23.56666666968" />
-                  <mssgle:CubicBezierSegment
-                    Point1="241.766653872365,23.56666666968"
-                    Point2="245.766653872365,23.56666666968"
-                    Point3="245.766653872365,27.56666666968" />
-                  <mssgle:LineSegment
-                    End="245.766653872365,39.63333333936" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Sort Output1]"
-          TopLeft="662.133299822279,217.866666063997">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-192.066654191084,138.266665883197"
-              Start="0,0"
-              End="-192.066654191084,130.766665883197">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77.9482922185775" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77.9482922185775"
-                    Point2="0,81.9482922185775"
-                    Point3="-4,81.9482922185775" />
-                  <mssgle:LineSegment
-                    End="-188.066654191084,81.9482922185775" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-188.066654191084,81.9482922185775"
-                    Point2="-192.066654191084,81.9482922185775"
-                    Point3="-192.066654191084,85.9482922185775" />
-                  <mssgle:LineSegment
-                    End="-192.066654191084,130.766665883197" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="106.4,41.6"
+          Id="Package\Data Flow Task\Sort 1"
+          TopLeft="171.388879524614,244.577776544315" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Data Flow Task\OLE DB Destination"
+          TopLeft="363.333313481676,514.799996420145" />
         <NodeLayout
           Size="153.6,41.6"
           Id="Package\Data Flow Task\Conditional Split"
           TopLeft="378.333312662112,433.933331856794" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Sort Output1]"
+          TopLeft="661.299966534477,221.333332706557">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-191.233320903282,134.799999240637"
+              Start="0,0"
+              End="-191.233320903282,127.299999240637">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.8936580865239" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,75.8936580865239"
+                    Point2="0,79.8936580865239"
+                    Point3="-4,79.8936580865239" />
+                  <mssgle:LineSegment
+                    End="-187.233320903282,79.8936580865239" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-187.233320903282,79.8936580865239"
+                    Point2="-191.233320903282,79.8936580865239"
+                    Point3="-191.233320903282,83.8936580865239" />
+                  <mssgle:LineSegment
+                    End="-191.233320903282,127.299999240637" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Sort Output]"
+          TopLeft="224.588879524614,286.177776544315">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="204.944432773248,69.9555554028793"
+              Start="0,0"
+              End="204.944432773248,62.4555554028793">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.4614633241455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.4614633241455"
+                    Point2="0,41.4614633241455"
+                    Point3="4,41.4614633241455" />
+                  <mssgle:LineSegment
+                    End="200.944432773248,41.4614633241455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="200.944432773248,41.4614633241455"
+                    Point2="204.944432773248,41.4614633241455"
+                    Point3="204.944432773248,45.4614633241455" />
+                  <mssgle:LineSegment
+                    End="204.944432773248,62.4555554028793" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output1]"
+          TopLeft="659.749967832119,109.066666353279">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.6666663532782"
+              Start="0,0"
+              End="0,63.1666663532782">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.1666663532782" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="210.149993511786,119.177777394078">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.5999993310372"
+              Start="0,0"
+              End="0,47.0999993310372">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.0999993310372" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Merge Join Output]"
           TopLeft="452.46664581332,397.733331947194">
@@ -1484,6 +1565,40 @@
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,28.6999999095997" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[Data Conversion Output]"
+          TopLeft="208.833326184915,215.377776725115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="15.7555533396983,29.1999998191992"
+              Start="0,0"
+              End="15.7555533396983,21.6999998191992">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.5999999095996" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.5999999095996"
+                    Point2="0,14.5999999095996"
+                    Point3="4,14.5999999095996" />
+                  <mssgle:LineSegment
+                    End="11.7555533396983,14.5999999095996" />
+                  <mssgle:CubicBezierSegment
+                    Point1="11.7555533396983,14.5999999095996"
+                    Point2="15.7555533396983,14.5999999095996"
+                    Point3="15.7555533396983,18.5999999095996" />
+                  <mssgle:LineSegment
+                    End="15.7555533396983,21.6999998191992" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1511,14 +1626,16 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="-70.61390625,10.0542307191758,141.2278125,11.658203125"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\OLE DB Destination">
+    design-time-name="Package\Data Flow Task\OLE DB Stage_prdutco">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1539,7 +1656,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\OLE DB Stage_prdutco">
+    design-time-name="Package\Data Flow Task\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
